@@ -39,7 +39,7 @@ fail_verify(){
 echo "[ERROR] Failed to download arXiV:$1 (invalid identifier or corrupt PDF)."
 }
 
-# Message for curl failure 
+# Failure message for curl 
 fail_connect(){
 echo "[ERROR] Connection to the arXiV failed."
 }
