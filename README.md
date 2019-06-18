@@ -4,9 +4,9 @@ A script for downloading arXiV preprints as PDFs
 ## Prerequisites
 * ```curl```
 * ```tail```
-
+* ```grep```
 ## Installation
-Make the file ```arxpdf``` executable; move it into your directory of choice.
+Give the file ```arxpdf``` executable permissions and move it into your directory of choice.
 
 ## Usage
 ```arxpdf [arXiV id]...``` to download a PDF of [arXiV id]
