@@ -17,5 +17,5 @@ Give the file ```arxpdf``` executable permissions and move it into your director
 * [Matt Kukla](https://matt-kukla.github.io) (<matt.kukla@yandex.ru>)
 
 ## License
-This project is licensed under the GNU GPL v3 - see [LICENSE.md](LICENSE.md)
+This project is licensed under the GNU GPL v3 - see [LICENSE](LICENSE)
 for details.
