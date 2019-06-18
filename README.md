@@ -1,5 +1,5 @@
 # arxpdf
-A script for downloading arXiV preprints as PDFs
+A script for downloading arXiv preprints as PDFs
 
 ## Prerequisites
 * ```curl```
@@ -9,9 +9,9 @@ A script for downloading arXiV preprints as PDFs
 Give the file ```arxpdf``` executable permissions and move it into your directory of choice.
 
 ## Usage
-```arxpdf [arXiV id]...``` to download a PDF of [arXiV id]
+```arxpdf [arXiv id]...``` to download a PDF of [arXiV id]
 
-```arxpdf [arXiV id]vn...``` to download the nth version of [arXiV id]
+```arxpdf [arXiv id]vn...``` to download the nth version of [arXiV id]
 
 ## Authors
 * [Matt Kukla](https://matt-kukla.github.io) (<matt.kukla@yandex.ru>)
