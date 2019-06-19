@@ -68,7 +68,7 @@ while [ "$#" -gt 0 ]; do
     fi
 
 # Download using current identifier format
-    if (echo "$1" | grep '^[0-9]\{4\}\.[0-9]\{4\}\(v[0-9]\)\?$' -q) || (echo "$1" | grep '^[0-9]\{4\}\.[0-9]\{5\}\(v[0-9]\)\?$' -q); then
+    if (echo "$1" | grep '^[0-9]\{4\}\.[0-9]\{4\}\([0-9]\?\)\(v[0-9]\)\?$' -q); then
         if ! curl $URL/$1.pdf -o $1.pdf -s; then
             fail_connect
         else
