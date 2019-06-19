@@ -29,7 +29,8 @@ echo
 echo 'For more about arXiv identifiers, see arxiv.org/help/arxiv_identifier'
 echo
 echo 'Options:'
-echo '-h, --help        Show this message'
+echo '-t, --title             Convert to (somewhat long) named PDF'
+echo '-h, --help              Show this message'
 echo '-v, --version           Show version number'
 exit
 }
@@ -52,19 +53,34 @@ if [ "$(tail "$1".pdf -n 1)"  != "%%EOF" ]; then
 fi
 }
 
+# Give a name to the PDF based on title.
+
 if [ $# = 0 ]; then
     usage
     exit 0
-fi    
+fi
 
 while [ "$#" -gt 0 ]; do
+    if [ "$#" -gt 1 ]; then
+      if [ $2 = '--title' ] || [ $2 = '-t' ]; then
+        USETITLE=1
+      fi
+    else
+      USETITLE=0
+    fi
+
 # Download using current identifier format
-    if echo "$1" | grep '^[0-9]\{4\}\.[0-9]\{5\}\(v[0-9]\)\?$' -q ; then
-        if ! curl  $URL/$1.pdf -o $1.pdf -s; then
+    if (echo "$1" | grep '^[0-9]\{4\}\.[0-9]\{4\}\(v[0-9]\)\?$' -q) || (echo "$1" | grep '^[0-9]\{4\}\.[0-9]\{5\}\(v[0-9]\)\?$' -q); then
+        if ! curl $URL/$1.pdf -o $1.pdf -s; then
             fail_connect
         else
             verify $1
-        fi    
+            if [ "$USETITLE" = 1 ]; then
+              NEWFILE=$(curl -X GET http://export.arxiv.org/api/query\?id_list\=$1 | grep '<title>.*</title>' | sed 's/\(    <title>\|<\/title>\)//g' | sed 's/[$\_^]//g ' | sed 's/ /-/g')
+              mv $1.pdf $NEWFILE.pdf
+              exit
+            fi
+        fi
         shift
 
 # Download using old identifier format
@@ -74,7 +90,7 @@ while [ "$#" -gt 0 ]; do
             fail_connect
         else   
             verify $FILE
-        fi    
+        fi
         shift
 
     elif [ $1 = '--help' ] || [ $1 = '-h' ]; then       
@@ -91,3 +107,4 @@ while [ "$#" -gt 0 ]; do
         exit 1
     fi   
 done
+
