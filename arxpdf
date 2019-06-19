@@ -53,8 +53,6 @@ if [ "$(tail "$1".pdf -n 1)"  != "%%EOF" ]; then
 fi
 }
 
-# Give a name to the PDF based on title.
-
 if [ $# = 0 ]; then
     usage
     exit 0
@@ -76,6 +74,7 @@ while [ "$#" -gt 0 ]; do
         else
             verify $1
             if [ "$USETITLE" = 1 ]; then
+              # Give a name to the PDF based on title (maybe should crop).
               NEWFILE=$(curl -X GET http://export.arxiv.org/api/query\?id_list\=$1 | grep '<title>.*</title>' | sed 's/\(    <title>\|<\/title>\)//g' | sed 's/[$\_^]//g ' | sed 's/ /-/g')
               mv $1.pdf $NEWFILE.pdf
               exit
